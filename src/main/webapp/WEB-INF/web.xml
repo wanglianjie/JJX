@@ -46,6 +46,9 @@
 	<filter-mapping>
 		<filter-name>shiroFilter</filter-name>
 		<url-pattern>/*</url-pattern>
+		<url-pattern>/swagger*/**=anon</url-pattern>
+		<url-pattern>/v2/**=anon</url-pattern>
+		<url-pattern>/webjars/**=anon</url-pattern>
 	</filter-mapping>
 
 	<!-- PageCache, cache .html suffix.
@@ -93,6 +96,10 @@
 	<servlet-mapping>
 		<servlet-name>springServlet</servlet-name>
 		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	    <servlet-name>springServlet</servlet-name>
+	    <url-pattern>/v2/api-docs</url-pattern>
 	</servlet-mapping>
 
 	<!-- Activiti diagram-view callback filter-->

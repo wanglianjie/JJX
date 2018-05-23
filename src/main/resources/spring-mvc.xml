@@ -54,6 +54,9 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 	
+	<mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>  
+	<mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+	
     <!-- REST中根据URL后缀自动判定Content-Type及相应的View -->
 	<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
 	    <property name="mediaTypes" >

@@ -16,8 +16,7 @@ import com.thinkgem.jeesite.common.persistence.DataEntity;
  * @version 2018-04-24
  */
 public class VipInfo extends DataEntity<VipInfo> {
-
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 807427964805611069L;
 	private String name; // 名称
 	private String sex; // 性别(1: 男 2：女)
 	private Integer currentTimes; // 当前次数
@@ -65,6 +64,11 @@ public class VipInfo extends DataEntity<VipInfo> {
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+
+	@Override
+	public String toString() {
+		return "VipInfo [name=" + name + ", sex=" + sex + ", currentTimes=" + currentTimes + ", mobile=" + mobile + "]";
 	}
 
 }

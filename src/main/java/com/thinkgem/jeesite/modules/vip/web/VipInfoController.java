@@ -17,10 +17,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.thinkgem.jeesite.common.config.Global;
 import com.thinkgem.jeesite.common.persistence.Page;
-import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.common.utils.StringUtils;
+import com.thinkgem.jeesite.common.web.BaseController;
 import com.thinkgem.jeesite.modules.vip.entity.VipInfo;
 import com.thinkgem.jeesite.modules.vip.service.VipInfoService;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * 会员信息Controller
@@ -29,6 +32,7 @@ import com.thinkgem.jeesite.modules.vip.service.VipInfoService;
  */
 @Controller
 @RequestMapping(value = "${adminPath}/vip/vipInfo")
+@Api(tags = "VipInfoController", description = "会员信息相关")  
 public class VipInfoController extends BaseController {
 
 	@Autowired
@@ -48,6 +52,7 @@ public class VipInfoController extends BaseController {
 	
 	@RequiresPermissions("vip:vipInfo:view")
 	@RequestMapping(value = {"list", ""})
+	@ApiOperation(value = "获取会员信息", httpMethod = "GET", notes = "获取会员信息")  
 	public String list(VipInfo vipInfo, HttpServletRequest request, HttpServletResponse response, Model model) {
 		Page<VipInfo> page = vipInfoService.findPage(new Page<VipInfo>(request, response), vipInfo); 
 		model.addAttribute("page", page);
@@ -77,6 +82,15 @@ public class VipInfoController extends BaseController {
 	public String delete(VipInfo vipInfo, RedirectAttributes redirectAttributes) {
 		vipInfoService.delete(vipInfo);
 		addMessage(redirectAttributes, "删除保存会员信息成功成功");
+		return "redirect:"+Global.getAdminPath()+"/vip/vipInfo/?repage";
+	}
+	
+	
+	@RequiresPermissions("vip:vipInfo:edit")
+	@RequestMapping(value = "cousume")
+	public String cousume(VipInfo vipInfo, int consumeCount, RedirectAttributes redirectAttributes) {
+		String msg = vipInfoService.cousume(vipInfo, consumeCount);
+		addMessage(redirectAttributes, msg);
 		return "redirect:"+Global.getAdminPath()+"/vip/vipInfo/?repage";
 	}
 
